@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "z7Lxrcl1MpjHQmQqoWNEhQUReWdnd4Viw2gd6IPAHMI=",
+  "Source": "GroceryTracker.Api",
+  "BasePath": "_content/GroceryTracker.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

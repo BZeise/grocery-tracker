@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\GroceryTracker.Api.props" />
+</Project>
