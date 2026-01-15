@@ -23,7 +23,7 @@ public class GroceryTrackerContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Name).HasMaxLength(200).IsRequired();
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("datetime('now')");
             entity.Property(e => e.IsActive).HasDefaultValue(true);
         });
 
@@ -31,7 +31,7 @@ public class GroceryTrackerContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("datetime('now')");
         });
 
         modelBuilder.Entity<PriceEntry>(entity =>
@@ -41,8 +41,8 @@ public class GroceryTrackerContext : DbContext
             entity.Property(e => e.UnitType).HasMaxLength(20).IsRequired();
             entity.Property(e => e.TotalPrice).HasPrecision(18, 2);
             entity.Property(e => e.PricePerUnit).HasPrecision(18, 4);
-            entity.Property(e => e.RecordedAt).HasDefaultValueSql("GETUTCDATE()");
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(e => e.RecordedAt).HasDefaultValueSql("datetime('now')");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("datetime('now')");
 
             entity.HasOne(e => e.Item)
                 .WithMany(i => i.PriceEntries)
@@ -60,7 +60,7 @@ public class GroceryTrackerContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.TableName).HasMaxLength(50).IsRequired();
             entity.Property(e => e.Action).HasMaxLength(20).IsRequired();
-            entity.Property(e => e.ChangedAt).HasDefaultValueSql("GETUTCDATE()");
+            entity.Property(e => e.ChangedAt).HasDefaultValueSql("datetime('now')");
         });
     }
 

@@ -286,3 +286,4 @@ C:\code\grocery-tracker\backend\GroceryTracker.Api\obj\Debug\net8.0\refint\Groce
 C:\code\grocery-tracker\backend\GroceryTracker.Api\obj\Debug\net8.0\GroceryTracker.Api.pdb
 C:\code\grocery-tracker\backend\GroceryTracker.Api\obj\Debug\net8.0\GroceryTracker.Api.genruntimeconfig.cache
 C:\code\grocery-tracker\backend\GroceryTracker.Api\obj\Debug\net8.0\ref\GroceryTracker.Api.dll
+C:\Code\grocery-tracker\backend\GroceryTracker.Api\obj\Debug\net8.0\GroceryTracker.Api.sourcelink.json
