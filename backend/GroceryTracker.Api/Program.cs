@@ -44,11 +44,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Ensure database is created and migrations are applied
+// Ensure database is created
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<GroceryTrackerContext>();
-    context.Database.Migrate();
+    context.Database.EnsureCreated();
 }
 
 app.Run();

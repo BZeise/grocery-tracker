@@ -28,7 +28,7 @@ export function PasswordGate() {
         <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Grocery Price Tracker
         </h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={(e) => { void handleSubmit(e); }} className="space-y-4">
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
               Enter Password

@@ -50,11 +50,12 @@ export function ItemTable({
         case 'name':
           comparison = a.name.localeCompare(b.name);
           break;
-        case 'price':
+        case 'price': {
           const aPrice = a.bestPrice?.pricePerUnit ?? Infinity;
           const bPrice = b.bestPrice?.pricePerUnit ?? Infinity;
           comparison = aPrice - bPrice;
           break;
+        }
         case 'date':
           comparison = new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
           break;

@@ -9,9 +9,9 @@
       "GroceryTracker.Api/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": "8.0.23",
-          "Microsoft.EntityFrameworkCore.Design": "8.0.23",
-          "Microsoft.EntityFrameworkCore.Sqlite": "8.0.23",
-          "Microsoft.EntityFrameworkCore.Tools": "8.0.23",
+          "Microsoft.EntityFrameworkCore.Design": "8.0.24",
+          "Microsoft.EntityFrameworkCore.Sqlite": "8.0.24",
+          "Microsoft.EntityFrameworkCore.Tools": "8.0.24",
           "Swashbuckle.AspNetCore": "6.6.2"
         },
         "runtime": {
@@ -266,89 +266,89 @@
           }
         }
       },
-      "Microsoft.Data.Sqlite.Core/8.0.23": {
+      "Microsoft.Data.Sqlite.Core/8.0.24": {
         "dependencies": {
           "SQLitePCLRaw.core": "2.1.6"
         },
         "runtime": {
           "lib/net8.0/Microsoft.Data.Sqlite.dll": {
-            "assemblyVersion": "8.0.23.0",
-            "fileVersion": "8.0.2325.60904"
+            "assemblyVersion": "8.0.24.0",
+            "fileVersion": "8.0.2426.7202"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore/8.0.23": {
+      "Microsoft.EntityFrameworkCore/8.0.24": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.23",
-          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.23",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.24",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.24",
           "Microsoft.Extensions.Caching.Memory": "8.0.1",
           "Microsoft.Extensions.Logging": "8.0.1"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {
-            "assemblyVersion": "8.0.23.0",
-            "fileVersion": "8.0.2325.60904"
+            "assemblyVersion": "8.0.24.0",
+            "fileVersion": "8.0.2426.7202"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Abstractions/8.0.23": {
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.24": {
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
-            "assemblyVersion": "8.0.23.0",
-            "fileVersion": "8.0.2325.60904"
+            "assemblyVersion": "8.0.24.0",
+            "fileVersion": "8.0.2426.7202"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/8.0.23": {},
-      "Microsoft.EntityFrameworkCore.Design/8.0.23": {
+      "Microsoft.EntityFrameworkCore.Analyzers/8.0.24": {},
+      "Microsoft.EntityFrameworkCore.Design/8.0.24": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.CodeAnalysis.CSharp.Workspaces": "4.5.0",
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.23",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.24",
           "Microsoft.Extensions.DependencyModel": "8.0.2",
           "Mono.TextTemplating": "2.2.1"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Design.dll": {
-            "assemblyVersion": "8.0.23.0",
-            "fileVersion": "8.0.2325.60904"
+            "assemblyVersion": "8.0.24.0",
+            "fileVersion": "8.0.2426.7202"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/8.0.23": {
+      "Microsoft.EntityFrameworkCore.Relational/8.0.24": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "8.0.23",
+          "Microsoft.EntityFrameworkCore": "8.0.24",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
-            "assemblyVersion": "8.0.23.0",
-            "fileVersion": "8.0.2325.60904"
+            "assemblyVersion": "8.0.24.0",
+            "fileVersion": "8.0.2426.7202"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Sqlite/8.0.23": {
+      "Microsoft.EntityFrameworkCore.Sqlite/8.0.24": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Sqlite.Core": "8.0.23",
+          "Microsoft.EntityFrameworkCore.Sqlite.Core": "8.0.24",
           "SQLitePCLRaw.bundle_e_sqlite3": "2.1.6"
         }
       },
-      "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.23": {
+      "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.24": {
         "dependencies": {
-          "Microsoft.Data.Sqlite.Core": "8.0.23",
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.23",
+          "Microsoft.Data.Sqlite.Core": "8.0.24",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.24",
           "Microsoft.Extensions.DependencyModel": "8.0.2"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {
-            "assemblyVersion": "8.0.23.0",
-            "fileVersion": "8.0.2325.60904"
+            "assemblyVersion": "8.0.24.0",
+            "fileVersion": "8.0.2426.7202"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Tools/8.0.23": {
+      "Microsoft.EntityFrameworkCore.Tools/8.0.24": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "8.0.23"
+          "Microsoft.EntityFrameworkCore.Design": "8.0.24"
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {},
@@ -787,68 +787,68 @@
       "path": "microsoft.codeanalysis.workspaces.common/4.5.0",
       "hashPath": "microsoft.codeanalysis.workspaces.common.4.5.0.nupkg.sha512"
     },
-    "Microsoft.Data.Sqlite.Core/8.0.23": {
+    "Microsoft.Data.Sqlite.Core/8.0.24": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jefZVIZYP1zb5DF2T9vPIvTDKfvpH7Hk0bg9wlH2peAYTjz1UiCfBFdyuOyOMGwIOeDL6g5mTj9eKYwgSgQeow==",
-      "path": "microsoft.data.sqlite.core/8.0.23",
-      "hashPath": "microsoft.data.sqlite.core.8.0.23.nupkg.sha512"
+      "sha512": "sha512-CPQyUH1L+BmXkp77JGs9WXJpmvKC49RiBv3LrmbRSxk554aBcssPfliI166fBG7CbMzbqAN9BCM/971EHu3GCQ==",
+      "path": "microsoft.data.sqlite.core/8.0.24",
+      "hashPath": "microsoft.data.sqlite.core.8.0.24.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore/8.0.23": {
+    "Microsoft.EntityFrameworkCore/8.0.24": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zFFiP1bv9ym5TESwaajug8lN5rCB4KWk7d/5US+X3xVdZ5qeIbpszOFNtx6cijM6fyuacUCDKIfWsJ0WN9JFfQ==",
-      "path": "microsoft.entityframeworkcore/8.0.23",
-      "hashPath": "microsoft.entityframeworkcore.8.0.23.nupkg.sha512"
+      "sha512": "sha512-Jf82MqfFU3Nte4Cpmtq5HXhQfXHYhJawFawWuy281uiibg/Ch9z9D/gMnORFhjmGSxzSA4CmRaHwDm2lU9H/ZA==",
+      "path": "microsoft.entityframeworkcore/8.0.24",
+      "hashPath": "microsoft.entityframeworkcore.8.0.24.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Abstractions/8.0.23": {
+    "Microsoft.EntityFrameworkCore.Abstractions/8.0.24": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-R4Zw5NwUjVWdx0+3ycJnCmAPIQ2s1VLPeh3gF6ZOJ4MuBiiQWLRN3XlSv4JJ3rAVjrcIa0N0APIkHELHf95JIA==",
-      "path": "microsoft.entityframeworkcore.abstractions/8.0.23",
-      "hashPath": "microsoft.entityframeworkcore.abstractions.8.0.23.nupkg.sha512"
+      "sha512": "sha512-epzWc4RnG6aQS+MfIK1gg1XbL8ZTYgKtW8L1lDVHG4C3nilLd6tX8moX6Sv8sXQkH/tMhWhT2e4Nm811kYeoxg==",
+      "path": "microsoft.entityframeworkcore.abstractions/8.0.24",
+      "hashPath": "microsoft.entityframeworkcore.abstractions.8.0.24.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/8.0.23": {
+    "Microsoft.EntityFrameworkCore.Analyzers/8.0.24": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OJffn34WQkZRtyleqlCrf5BstqYrgo0ZvVgs4Kx4/pbtWdk5VoTrE7vf5ni+a5Aq1/5SGOt4/TY8RuGfxYjADw==",
-      "path": "microsoft.entityframeworkcore.analyzers/8.0.23",
-      "hashPath": "microsoft.entityframeworkcore.analyzers.8.0.23.nupkg.sha512"
+      "sha512": "sha512-nuMx9iCGkZgHvPKlnrYBjlxRgy8VDe443H0PbiDUvxQ8+4nC5JYhqQ9u5lg+FssnTh+QyvwVVVHvkCyAnrpajA==",
+      "path": "microsoft.entityframeworkcore.analyzers/8.0.24",
+      "hashPath": "microsoft.entityframeworkcore.analyzers.8.0.24.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Design/8.0.23": {
+    "Microsoft.EntityFrameworkCore.Design/8.0.24": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Kx8uA4WOHjNjgri0++YdQ3twhS/tootOa9BL36vRDcT1G2n7TDUadoSi9gMz5AcHS3klyCMzVMel9JI/GhVEQg==",
-      "path": "microsoft.entityframeworkcore.design/8.0.23",
-      "hashPath": "microsoft.entityframeworkcore.design.8.0.23.nupkg.sha512"
+      "sha512": "sha512-C/4u0K68tnv7+gci1aB8x6MMS/U+00SS/2/u2tyaF9S5azIrELc3c8qf7UGB2GT7/sXHP0fhT/od2dg4gU0sSg==",
+      "path": "microsoft.entityframeworkcore.design/8.0.24",
+      "hashPath": "microsoft.entityframeworkcore.design.8.0.24.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Relational/8.0.23": {
+    "Microsoft.EntityFrameworkCore.Relational/8.0.24": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-v99Y8Y1BIdBzYZ+YupM6DS2axF7hN8GhZydoV7pjsUu61nR2sVzC2dGzuE7zU8mW3WfAEFTHhmaZh2th+LvVuQ==",
-      "path": "microsoft.entityframeworkcore.relational/8.0.23",
-      "hashPath": "microsoft.entityframeworkcore.relational.8.0.23.nupkg.sha512"
+      "sha512": "sha512-QMGORS3ltx2RWHBCUcBjadS0eNYGkTGXsOdZf3oSM6pZuNBBl16z6gThA3a+BF8T5HY3jThxVDFKaPHxmpueXA==",
+      "path": "microsoft.entityframeworkcore.relational/8.0.24",
+      "hashPath": "microsoft.entityframeworkcore.relational.8.0.24.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Sqlite/8.0.23": {
+    "Microsoft.EntityFrameworkCore.Sqlite/8.0.24": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-PbtPfnHQzm+njh/qNgNhHF1icQZLQbjuf6cZo3rnIo2E4roIiTs5kR8i1HzqYPAf/v/ineqCrEr0O0VN3Frk/w==",
-      "path": "microsoft.entityframeworkcore.sqlite/8.0.23",
-      "hashPath": "microsoft.entityframeworkcore.sqlite.8.0.23.nupkg.sha512"
+      "sha512": "sha512-3LmaDSff4S6iKetf+cI4Q36Tg841ijA4PPjuNPPp6t21MEYWVV0+vtFstrv4TYNX2Z1qXvAcuudQH8AmxFOGKw==",
+      "path": "microsoft.entityframeworkcore.sqlite/8.0.24",
+      "hashPath": "microsoft.entityframeworkcore.sqlite.8.0.24.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.23": {
+    "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.24": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kbBTtjyVmADrFjEVm+h+NcIb6CjSFJYpbbeGgJc8Knxa9CUF9AOK8m3O+4cgSaH88bnbpFPa2FM/WUDO3UX5GQ==",
-      "path": "microsoft.entityframeworkcore.sqlite.core/8.0.23",
-      "hashPath": "microsoft.entityframeworkcore.sqlite.core.8.0.23.nupkg.sha512"
+      "sha512": "sha512-pWfc8UMuITscRhuMzgj+dpN6NwmhYg8PfSOJGqWEue07qrrXOridHA22+e4H7IKb8dnDohEnGl2x8FjbcL8l+w==",
+      "path": "microsoft.entityframeworkcore.sqlite.core/8.0.24",
+      "hashPath": "microsoft.entityframeworkcore.sqlite.core.8.0.24.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Tools/8.0.23": {
+    "Microsoft.EntityFrameworkCore.Tools/8.0.24": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-oHVecsDSKNmQa23j2dIb6w4c7EQQUvf+iEZkOkcbrETTi9kGXJkDGs3RcnozLHS1kr983kVlsh8vRFl66TalZQ==",
-      "path": "microsoft.entityframeworkcore.tools/8.0.23",
-      "hashPath": "microsoft.entityframeworkcore.tools.8.0.23.nupkg.sha512"
+      "sha512": "sha512-QJriILl1zp7ANrDbUFQgaBvNI84BGKDF0qvCLpuihXrpBIBYrho18Wa8PcwFK4Ah7k1JeLF0ZBHaAT1tp6aNiA==",
+      "path": "microsoft.entityframeworkcore.tools/8.0.24",
+      "hashPath": "microsoft.entityframeworkcore.tools.8.0.24.nupkg.sha512"
     },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
       "type": "package",

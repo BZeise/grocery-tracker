@@ -12,7 +12,7 @@ import type {
 
 // In development, Vite proxy handles /api requests
 // In production, set VITE_API_URL to your backend URL
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const API_BASE = (import.meta.env.VITE_API_URL as string | undefined) ?? '/api';
 
 async function fetchApi<T>(
   endpoint: string,
@@ -35,7 +35,7 @@ async function fetchApi<T>(
     return {} as T;
   }
 
-  return response.json();
+  return response.json() as Promise<T>;
 }
 
 // Auth

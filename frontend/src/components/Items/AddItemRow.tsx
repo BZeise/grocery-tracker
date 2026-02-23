@@ -186,7 +186,7 @@ export function AddItemRow({ stores, onItemCreated, onStoreCreated }: AddItemRow
 
       <div className="flex gap-2 pt-2">
         <button
-          onClick={handleSubmit}
+          onClick={() => { void handleSubmit(); }}
           disabled={!isValid || isSubmitting}
           className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >

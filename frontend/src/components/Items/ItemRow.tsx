@@ -76,7 +76,7 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
       {/* Main row - card style for mobile */}
       <div
         className="p-4 cursor-pointer hover:bg-gray-50 transition-colors"
-        onClick={handleExpand}
+        onClick={() => { void handleExpand(); }}
       >
         <div className="flex justify-between items-start">
           <div className="flex-1 min-w-0">
@@ -85,9 +85,9 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
                 type="text"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                onBlur={handleUpdateName}
+                onBlur={() => { void handleUpdateName(); }}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleUpdateName();
+                  if (e.key === 'Enter') { void handleUpdateName(); }
                   if (e.key === 'Escape') {
                     setEditName(item.name);
                     setIsEditing(false);
@@ -168,7 +168,7 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleDelete();
+                    void handleDelete();
                   }}
                   className="px-3 py-1.5 bg-red-100 text-red-700 text-sm rounded-lg hover:bg-red-200"
                 >
@@ -212,7 +212,7 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
                             {formatPricePerUnit(price.pricePerUnit)}/{price.unitType}
                           </p>
                           <button
-                            onClick={() => handleDeletePrice(price.id)}
+                            onClick={() => { void handleDeletePrice(price.id); }}
                             className="text-xs text-red-600 hover:text-red-800 mt-1"
                           >
                             Remove

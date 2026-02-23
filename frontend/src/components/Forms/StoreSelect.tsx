@@ -48,12 +48,12 @@ export function StoreSelect({ stores, selectedStoreId, onSelect, onStoreCreated 
           placeholder="Store name"
           className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           onKeyDown={(e) => {
-            if (e.key === 'Enter') handleAddStore();
+            if (e.key === 'Enter') { void handleAddStore(); }
             if (e.key === 'Escape') setIsAdding(false);
           }}
         />
         <button
-          onClick={handleAddStore}
+          onClick={() => { void handleAddStore(); }}
           disabled={isSubmitting || !newStoreName.trim()}
           className="px-3 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 disabled:bg-gray-400"
         >

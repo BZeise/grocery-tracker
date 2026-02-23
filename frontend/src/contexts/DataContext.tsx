@@ -47,7 +47,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, [refreshItems, refreshStores]);
 
   useEffect(() => {
-    refreshAll();
+    void refreshAll();
   }, [refreshAll]);
 
   return (
@@ -67,6 +67,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useData() {
   const context = useContext(DataContext);
   if (context === undefined) {

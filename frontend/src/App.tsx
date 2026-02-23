@@ -52,7 +52,7 @@ function Dashboard() {
           Error: {error}
         </div>
         <button
-          onClick={refreshAll}
+          onClick={() => { void refreshAll(); }}
           className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
         >
           Retry
@@ -84,8 +84,8 @@ function Dashboard() {
             filterStoreId={filterStoreId}
             sortField={sortField}
             sortDirection={sortDirection}
-            onUpdate={refreshItems}
-            onStoreCreated={refreshStores}
+            onUpdate={() => { void refreshItems(); }}
+            onStoreCreated={() => { void refreshStores(); }}
           />
         </div>
       </main>
