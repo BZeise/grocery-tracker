@@ -83,6 +83,7 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
             {isEditing ? (
               <input
                 type="text"
+                title="Item Row"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
                 onBlur={() => { void handleUpdateName(); }}
@@ -148,6 +149,7 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
               {/* Actions */}
               <div className="flex gap-2 mb-4">
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsAddingPrice(true);
@@ -157,6 +159,7 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
                   + Add Price
                 </button>
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsEditing(true);
@@ -166,6 +169,7 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
                   Edit Name
                 </button>
                 <button
+                  type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     void handleDelete();
@@ -212,6 +216,7 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
                             {formatPricePerUnit(price.pricePerUnit)}/{price.unitType}
                           </p>
                           <button
+                            type="button"
                             onClick={() => { void handleDeletePrice(price.id); }}
                             className="text-xs text-red-600 hover:text-red-800 mt-1"
                           >

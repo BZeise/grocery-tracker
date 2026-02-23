@@ -8,6 +8,7 @@ export function MobileHeader() {
       <div className="px-4 py-3 flex justify-between items-center">
         <h1 className="text-xl font-bold">Grocery Tracker</h1>
         <button
+          type="button"
           onClick={logout}
           className="text-sm px-3 py-1 bg-blue-700 rounded-lg hover:bg-blue-800 transition-colors"
         >

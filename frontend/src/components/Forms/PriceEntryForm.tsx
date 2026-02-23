@@ -92,6 +92,7 @@ export function PriceEntryForm({
           <select
             value={unitType}
             onChange={(e) => setUnitType(e.target.value)}
+            title="Unit type"
             className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             {UNIT_TYPES.map((unit) => (
@@ -134,6 +135,7 @@ export function PriceEntryForm({
 
       <div className="flex gap-2 pt-2">
         <button
+          type="button"
           onClick={() => { void handleSubmit(); }}
           disabled={!isValid || isSubmitting}
           className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
@@ -141,6 +143,7 @@ export function PriceEntryForm({
           {isSubmitting ? 'Saving...' : 'Save Price'}
         </button>
         <button
+          type="button"
           onClick={onCancel}
           className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
         >

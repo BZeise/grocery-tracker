@@ -53,6 +53,7 @@ export function StoreSelect({ stores, selectedStoreId, onSelect, onStoreCreated 
           }}
         />
         <button
+          type="button"
           onClick={() => { void handleAddStore(); }}
           disabled={isSubmitting || !newStoreName.trim()}
           className="px-3 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 disabled:bg-gray-400"
@@ -60,6 +61,7 @@ export function StoreSelect({ stores, selectedStoreId, onSelect, onStoreCreated 
           Add
         </button>
         <button
+          type="button"
           onClick={() => setIsAdding(false)}
           className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300"
         >
@@ -74,6 +76,7 @@ export function StoreSelect({ stores, selectedStoreId, onSelect, onStoreCreated 
       <select
         value={selectedStoreId ?? ''}
         onChange={(e) => onSelect(Number(e.target.value))}
+        title="Select store"
         className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
       >
         <option value="">Select store...</option>
@@ -84,6 +87,7 @@ export function StoreSelect({ stores, selectedStoreId, onSelect, onStoreCreated 
         ))}
       </select>
       <button
+        type="button"
         onClick={() => setIsAdding(true)}
         className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300"
         title="Add new store"

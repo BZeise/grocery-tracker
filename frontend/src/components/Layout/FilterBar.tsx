@@ -46,6 +46,7 @@ export function FilterBar({
         <select
           value={filterStoreId ?? ''}
           onChange={(e) => onFilterStoreChange(e.target.value ? Number(e.target.value) : null)}
+          title="Filter by store"
           className="flex-1 min-w-[120px] px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="">All Stores</option>
@@ -60,6 +61,7 @@ export function FilterBar({
         <select
           value={sortField}
           onChange={(e) => onSortFieldChange(e.target.value as SortField)}
+          title="Sort by"
           className="flex-1 min-w-[100px] px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         >
           <option value="name">Sort by Name</option>
@@ -69,6 +71,7 @@ export function FilterBar({
 
         {/* Sort direction */}
         <button
+          type="button"
           onClick={toggleSortDirection}
           className="px-3 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 focus:ring-2 focus:ring-blue-500"
           title={sortDirection === 'asc' ? 'Ascending' : 'Descending'}
