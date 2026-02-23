@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using GroceryTracker.Api.Models;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace GroceryTracker.Api.Data;
 
@@ -64,6 +65,11 @@ public class GroceryTrackerContext : DbContext
         });
     }
 
+    private static readonly JsonSerializerOptions _logOptions = new()
+    {
+        ReferenceHandler = ReferenceHandler.IgnoreCycles
+    };
+
     public async Task LogChangeAsync<T>(string action, int recordId, T? oldEntity, T? newEntity)
     {
         var log = new ChangeLog
@@ -71,8 +77,8 @@ public class GroceryTrackerContext : DbContext
             TableName = typeof(T).Name,
             RecordId = recordId,
             Action = action,
-            OldValues = oldEntity != null ? JsonSerializer.Serialize(oldEntity) : null,
-            NewValues = newEntity != null ? JsonSerializer.Serialize(newEntity) : null,
+            OldValues = oldEntity != null ? JsonSerializer.Serialize(oldEntity, _logOptions) : null,
+            NewValues = newEntity != null ? JsonSerializer.Serialize(newEntity, _logOptions) : null,
             ChangedAt = DateTime.UtcNow
         };
 
