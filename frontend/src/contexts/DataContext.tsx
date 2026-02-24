@@ -24,9 +24,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
     try {
       const data = await api.getItems();
       setItems(data);
-      setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load items');
+      console.error('Background refresh failed for items:', err);
     }
   }, []);
 
@@ -34,9 +33,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
     try {
       const data = await api.getStores();
       setStores(data);
-      setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load stores');
+      console.error('Background refresh failed for stores:', err);
     }
   }, []);
 

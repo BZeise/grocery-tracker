@@ -86,6 +86,7 @@ export function AddItemRow({ stores, onItemCreated, onStoreCreated }: AddItemRow
   if (!isOpen) {
     return (
       <button
+        type="button"
         onClick={() => setIsOpen(true)}
         className="w-full bg-white border-2 border-dashed border-gray-300 rounded-lg p-4 text-gray-500 hover:border-blue-400 hover:text-blue-600 transition-colors"
       >
