@@ -22,15 +22,21 @@ public class ItemsController : ControllerBase
         var items = await _context.Items
             .Include(i => i.PriceEntries)
                 .ThenInclude(p => p.Store)
+            .Include(i => i.PriceEntries)
+                .ThenInclude(p => p.User)
             .Where(i => i.IsActive)
             .OrderBy(i => i.Name)
             .ToListAsync();
 
         var result = items.Select(item =>
         {
-            var latestPricesByStore = item.PriceEntries
+            var latestEntriesByStore = item.PriceEntries
                 .GroupBy(p => p.StoreId)
                 .Select(g => g.OrderByDescending(p => p.RecordedAt).First())
+                .OrderBy(p => p.PricePerUnit)
+                .ToList();
+
+            var latestPricesByStore = latestEntriesByStore
                 .Select(p => new StorePriceDto(
                     p.StoreId,
                     p.Store.Name,
@@ -40,19 +46,19 @@ public class ItemsController : ControllerBase
                     p.UnitType,
                     p.RecordedAt
                 ))
-                .OrderBy(p => p.PricePerUnit)
                 .ToList();
 
-            var bestPrice = latestPricesByStore.FirstOrDefault();
+            var bestEntry = latestEntriesByStore.FirstOrDefault();
 
             return new ItemSummaryDto(
                 item.Id,
                 item.Name,
                 item.CreatedAt,
-                bestPrice != null ? new PriceEntryDto(
-                    0, item.Id, bestPrice.StoreId, bestPrice.StoreName,
-                    bestPrice.Quantity, bestPrice.UnitType, bestPrice.TotalPrice,
-                    bestPrice.PricePerUnit, false, bestPrice.RecordedAt, bestPrice.RecordedAt
+                bestEntry != null ? new PriceEntryDto(
+                    bestEntry.Id, item.Id, bestEntry.StoreId, bestEntry.Store.Name,
+                    bestEntry.UserId, bestEntry.User.Name,
+                    bestEntry.Quantity, bestEntry.UnitType, bestEntry.TotalPrice,
+                    bestEntry.PricePerUnit, bestEntry.IsOverridden, bestEntry.RecordedAt, bestEntry.CreatedAt
                 ) : null,
                 latestPricesByStore
             );
@@ -67,6 +73,8 @@ public class ItemsController : ControllerBase
         var item = await _context.Items
             .Include(i => i.PriceEntries)
                 .ThenInclude(p => p.Store)
+            .Include(i => i.PriceEntries)
+                .ThenInclude(p => p.User)
             .FirstOrDefaultAsync(i => i.Id == id);
 
         if (item == null)
@@ -78,6 +86,7 @@ public class ItemsController : ControllerBase
             .OrderByDescending(p => p.RecordedAt)
             .Select(p => new PriceEntryDto(
                 p.Id, p.ItemId, p.StoreId, p.Store.Name,
+                p.UserId, p.User.Name,
                 p.Quantity, p.UnitType, p.TotalPrice,
                 p.PricePerUnit, p.IsOverridden, p.RecordedAt, p.CreatedAt
             ))

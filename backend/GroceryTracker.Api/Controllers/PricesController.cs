@@ -31,6 +31,12 @@ public class PricesController : ControllerBase
             return BadRequest("Store not found");
         }
 
+        var user = await _context.Users.FindAsync(request.UserId);
+        if (user == null)
+        {
+            return BadRequest("User not found");
+        }
+
         var pricePerUnit = request.PricePerUnit ??
             (request.Quantity > 0 ? request.TotalPrice / request.Quantity : 0);
 
@@ -38,6 +44,7 @@ public class PricesController : ControllerBase
         {
             ItemId = request.ItemId,
             StoreId = request.StoreId,
+            UserId = request.UserId,
             Quantity = request.Quantity,
             UnitType = request.UnitType,
             TotalPrice = request.TotalPrice,
@@ -57,6 +64,7 @@ public class PricesController : ControllerBase
             new { id = priceEntry.Id },
             new PriceEntryDto(
                 priceEntry.Id, priceEntry.ItemId, priceEntry.StoreId, store.Name,
+                priceEntry.UserId, user.Name,
                 priceEntry.Quantity, priceEntry.UnitType, priceEntry.TotalPrice,
                 priceEntry.PricePerUnit, priceEntry.IsOverridden, priceEntry.RecordedAt, priceEntry.CreatedAt
             )
@@ -68,6 +76,7 @@ public class PricesController : ControllerBase
     {
         var priceEntry = await _context.PriceEntries
             .Include(p => p.Store)
+            .Include(p => p.User)
             .FirstOrDefaultAsync(p => p.Id == id);
 
         if (priceEntry == null)
@@ -77,6 +86,7 @@ public class PricesController : ControllerBase
 
         return Ok(new PriceEntryDto(
             priceEntry.Id, priceEntry.ItemId, priceEntry.StoreId, priceEntry.Store.Name,
+            priceEntry.UserId, priceEntry.User.Name,
             priceEntry.Quantity, priceEntry.UnitType, priceEntry.TotalPrice,
             priceEntry.PricePerUnit, priceEntry.IsOverridden, priceEntry.RecordedAt, priceEntry.CreatedAt
         ));
@@ -87,6 +97,7 @@ public class PricesController : ControllerBase
     {
         var priceEntry = await _context.PriceEntries
             .Include(p => p.Store)
+            .Include(p => p.User)
             .FirstOrDefaultAsync(p => p.Id == id);
 
         if (priceEntry == null)
@@ -99,6 +110,7 @@ public class PricesController : ControllerBase
             Id = priceEntry.Id,
             ItemId = priceEntry.ItemId,
             StoreId = priceEntry.StoreId,
+            UserId = priceEntry.UserId,
             Quantity = priceEntry.Quantity,
             UnitType = priceEntry.UnitType,
             TotalPrice = priceEntry.TotalPrice,
@@ -111,6 +123,7 @@ public class PricesController : ControllerBase
         var pricePerUnit = request.PricePerUnit ??
             (request.Quantity > 0 ? request.TotalPrice / request.Quantity : 0);
 
+        priceEntry.UserId = request.UserId;
         priceEntry.Quantity = request.Quantity;
         priceEntry.UnitType = request.UnitType;
         priceEntry.TotalPrice = request.TotalPrice;
@@ -124,6 +137,7 @@ public class PricesController : ControllerBase
 
         return Ok(new PriceEntryDto(
             priceEntry.Id, priceEntry.ItemId, priceEntry.StoreId, priceEntry.Store.Name,
+            priceEntry.UserId, priceEntry.User.Name,
             priceEntry.Quantity, priceEntry.UnitType, priceEntry.TotalPrice,
             priceEntry.PricePerUnit, priceEntry.IsOverridden, priceEntry.RecordedAt, priceEntry.CreatedAt
         ));

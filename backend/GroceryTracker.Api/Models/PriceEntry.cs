@@ -13,6 +13,9 @@ public class PriceEntry
     public DateTime RecordedAt { get; set; } = DateTime.UtcNow;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    public int UserId { get; set; }
+
     public Item Item { get; set; } = null!;
     public Store Store { get; set; } = null!;
+    public User User { get; set; } = null!;
 }

@@ -1,60 +1,56 @@
-import { useState, FormEvent } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useState, useEffect, useCallback } from 'react';
+import { useUser } from '../../contexts/AuthContext';
+import { getUsers } from '../../services/api';
+import type { User } from '../../types';
 
-export function PasswordGate() {
-  const [password, setPassword] = useState('');
+export function UserSelector() {
+  const [users, setUsers] = useState<User[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { login } = useAuth();
+  const { selectUser } = useUser();
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setIsSubmitting(true);
-
-    const success = await login(password);
-
-    if (!success) {
-      setError('Incorrect password');
-      setPassword('');
+  const loadUsers = useCallback(async () => {
+    try {
+      const data = await getUsers();
+      setUsers(data);
+    } catch {
+      setError('Could not load users. Is the server running?');
+    } finally {
+      setIsLoading(false);
     }
+  }, []);
 
-    setIsSubmitting(false);
-  };
+  useEffect(() => {
+    void loadUsers();
+  }, [loadUsers]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+        <h1 className="text-2xl font-bold text-center text-gray-800 mb-2">
           Grocery Price Tracker
         </h1>
-        <form onSubmit={(e) => { void handleSubmit(e); }} className="space-y-4">
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-              Enter Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
-              placeholder="Password"
-              autoFocus
-              inputMode="numeric"
-            />
+        <p className="text-center text-gray-500 mb-6">Who are you?</p>
+        {isLoading && (
+          <div className="text-center text-gray-400">Loading...</div>
+        )}
+        {error && (
+          <p className="text-red-500 text-sm text-center">{error}</p>
+        )}
+        {!isLoading && !error && (
+          <div className="flex flex-col gap-3">
+            {users.map(user => (
+              <button
+                key={user.id}
+                type="button"
+                onClick={() => { selectUser(user); }}
+                className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium text-lg hover:bg-blue-700 transition-colors"
+              >
+                {user.name}
+              </button>
+            ))}
           </div>
-          {error && (
-            <p className="text-red-500 text-sm text-center">{error}</p>
-          )}
-          <button
-            type="submit"
-            disabled={isSubmitting || !password}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
-          >
-            {isSubmitting ? 'Checking...' : 'Enter'}
-          </button>
-        </form>
+        )}
       </div>
     </div>
   );

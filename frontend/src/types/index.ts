@@ -1,3 +1,9 @@
+export interface User {
+  id: number;
+  name: string;
+  createdAt: string;
+}
+
 export interface Item {
   id: number;
   name: string;
@@ -29,6 +35,8 @@ export interface PriceEntry {
   itemId: number;
   storeId: number;
   storeName: string;
+  userId: number;
+  userName: string;
   quantity: number;
   unitType: string;
   totalPrice: number;
@@ -51,6 +59,7 @@ export interface CreateItemRequest {
 export interface CreatePriceEntryRequest {
   itemId: number;
   storeId: number;
+  userId: number;
   quantity: number;
   unitType: string;
   totalPrice: number;
@@ -59,6 +68,7 @@ export interface CreatePriceEntryRequest {
 }
 
 export interface UpdatePriceEntryRequest {
+  userId: number;
   quantity: number;
   unitType: string;
   totalPrice: number;
@@ -68,11 +78,6 @@ export interface UpdatePriceEntryRequest {
 
 export interface CreateStoreRequest {
   name: string;
-}
-
-export interface AuthResponse {
-  success: boolean;
-  message?: string;
 }
 
 export type SortField = 'name' | 'price' | 'date';

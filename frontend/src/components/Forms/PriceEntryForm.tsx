@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import type { Store, CreatePriceEntryRequest } from '../../types';
 import { UNIT_TYPES } from '../../types';
 import { StoreSelect } from './StoreSelect';
+import { useUser } from '../../contexts/AuthContext';
 
 interface PriceEntryFormProps {
   itemId: number;
@@ -18,6 +19,7 @@ export function PriceEntryForm({
   onCancel,
   onStoreCreated,
 }: PriceEntryFormProps) {
+  const { currentUser } = useUser();
   const [storeId, setStoreId] = useState<number | null>(null);
   const [quantity, setQuantity] = useState('');
   const [unitType, setUnitType] = useState<string>('count');
@@ -43,13 +45,14 @@ export function PriceEntryForm({
   };
 
   const handleSubmit = async () => {
-    if (!storeId || !quantity || !totalPrice) return;
+    if (!storeId || !quantity || !totalPrice || !currentUser) return;
 
     setIsSubmitting(true);
     try {
       await onSubmit({
         itemId,
         storeId,
+        userId: currentUser.id,
         quantity: parseFloat(quantity),
         unitType,
         totalPrice: parseFloat(totalPrice),

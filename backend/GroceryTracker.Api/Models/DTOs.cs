@@ -8,6 +8,7 @@ public record CreateStoreRequest(string Name);
 public record CreatePriceEntryRequest(
     int ItemId,
     int StoreId,
+    int UserId,
     decimal Quantity,
     string UnitType,
     decimal TotalPrice,
@@ -16,6 +17,7 @@ public record CreatePriceEntryRequest(
 );
 
 public record UpdatePriceEntryRequest(
+    int UserId,
     decimal Quantity,
     string UnitType,
     decimal TotalPrice,
@@ -23,9 +25,9 @@ public record UpdatePriceEntryRequest(
     DateTime? RecordedAt
 );
 
-public record VerifyPasswordRequest(string Password);
-
 // Response DTOs
+public record UserDto(int Id, string Name);
+
 public record ItemDto(
     int Id,
     string Name,
@@ -57,6 +59,8 @@ public record PriceEntryDto(
     int ItemId,
     int StoreId,
     string StoreName,
+    int UserId,
+    string UserName,
     decimal Quantity,
     string UnitType,
     decimal TotalPrice,
@@ -71,5 +75,3 @@ public record StoreDto(
     string Name,
     DateTime CreatedAt
 );
-
-public record AuthResponse(bool Success, string? Message = null);

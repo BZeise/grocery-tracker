@@ -3,6 +3,7 @@ import type { Store, CreatePriceEntryRequest } from '../../types';
 import { UNIT_TYPES } from '../../types';
 import { StoreSelect } from '../Forms/StoreSelect';
 import * as api from '../../services/api';
+import { useUser } from '../../contexts/AuthContext';
 
 interface AddItemRowProps {
   stores: Store[];
@@ -11,6 +12,7 @@ interface AddItemRowProps {
 }
 
 export function AddItemRow({ stores, onItemCreated, onStoreCreated }: AddItemRowProps) {
+  const { currentUser } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState('');
   const [storeId, setStoreId] = useState<number | null>(null);
@@ -33,7 +35,7 @@ export function AddItemRow({ stores, onItemCreated, onStoreCreated }: AddItemRow
   };
 
   const handleSubmit = async () => {
-    if (!name.trim() || !storeId || !quantity || !totalPrice) return;
+    if (!name.trim() || !storeId || !quantity || !totalPrice || !currentUser) return;
 
     setIsSubmitting(true);
     try {
@@ -44,6 +46,7 @@ export function AddItemRow({ stores, onItemCreated, onStoreCreated }: AddItemRow
       const priceRequest: CreatePriceEntryRequest = {
         itemId: newItem.id,
         storeId,
+        userId: currentUser.id,
         quantity: parseFloat(quantity),
         unitType,
         totalPrice: parseFloat(totalPrice),

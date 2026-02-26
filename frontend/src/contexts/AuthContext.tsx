@@ -1,60 +1,55 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { verifyPassword } from '../services/api';
+import type { User } from '../types';
 
-interface AuthContextType {
-  isAuthenticated: boolean;
+interface UserContextType {
+  currentUser: User | null;
   isLoading: boolean;
-  login: (password: string) => Promise<boolean>;
-  logout: () => void;
+  selectUser: (user: User) => void;
+  clearUser: () => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const UserContext = createContext<UserContextType | undefined>(undefined);
 
-const AUTH_KEY = 'grocery_tracker_auth';
+const USER_KEY = 'grocery_tracker_user';
 
-export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+export function UserProvider({ children }: { children: ReactNode }) {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storedAuth = sessionStorage.getItem(AUTH_KEY);
-    if (storedAuth === 'true') {
-      setIsAuthenticated(true);
+    const stored = localStorage.getItem(USER_KEY);
+    if (stored) {
+      try {
+        setCurrentUser(JSON.parse(stored) as User);
+      } catch {
+        localStorage.removeItem(USER_KEY);
+      }
     }
     setIsLoading(false);
   }, []);
 
-  const login = async (password: string): Promise<boolean> => {
-    try {
-      const response = await verifyPassword(password);
-      if (response.success) {
-        setIsAuthenticated(true);
-        sessionStorage.setItem(AUTH_KEY, 'true');
-        return true;
-      }
-      return false;
-    } catch {
-      return false;
-    }
+  const selectUser = (user: User) => {
+    setCurrentUser(user);
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
   };
 
-  const logout = () => {
-    setIsAuthenticated(false);
-    sessionStorage.removeItem(AUTH_KEY);
+  const clearUser = () => {
+    setCurrentUser(null);
+    localStorage.removeItem(USER_KEY);
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout }}>
+    <UserContext.Provider value={{ currentUser, isLoading, selectUser, clearUser }}>
       {children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
-export function useAuth() {
-  const context = useContext(AuthContext);
+export function useUser(): UserContextType {
+  const context = useContext(UserContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useUser must be used within a UserProvider');
   }
   return context;
 }

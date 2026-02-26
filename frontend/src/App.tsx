@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { UserProvider, useUser } from './contexts/AuthContext';
 import { DataProvider, useData } from './contexts/DataContext';
-import { PasswordGate } from './components/Auth/PasswordGate';
+import { UserSelector } from './components/Auth/PasswordGate';
 import { MobileHeader } from './components/Layout/MobileHeader';
 import { FilterBar } from './components/Layout/FilterBar';
 import { ItemTable } from './components/Items/ItemTable';
@@ -9,9 +9,9 @@ import type { SortField, SortDirection } from './types';
 import './index.css';
 
 function MainApp() {
-  const { isAuthenticated, isLoading: authLoading } = useAuth();
+  const { currentUser, isLoading: userLoading } = useUser();
 
-  if (authLoading) {
+  if (userLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="text-gray-500">Loading...</div>
@@ -19,8 +19,8 @@ function MainApp() {
     );
   }
 
-  if (!isAuthenticated) {
-    return <PasswordGate />;
+  if (!currentUser) {
+    return <UserSelector />;
   }
 
   return (
@@ -95,9 +95,9 @@ function Dashboard() {
 
 function App() {
   return (
-    <AuthProvider>
+    <UserProvider>
       <MainApp />
-    </AuthProvider>
+    </UserProvider>
   );
 }
 

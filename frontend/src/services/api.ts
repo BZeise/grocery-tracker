@@ -3,11 +3,11 @@ import type {
   Item,
   Store,
   PriceEntry,
+  User,
   CreateItemRequest,
   CreatePriceEntryRequest,
   UpdatePriceEntryRequest,
   CreateStoreRequest,
-  AuthResponse,
 } from '../types';
 
 // In development, Vite proxy handles /api requests
@@ -38,12 +38,9 @@ async function fetchApi<T>(
   return response.json() as Promise<T>;
 }
 
-// Auth
-export const verifyPassword = (password: string): Promise<AuthResponse> =>
-  fetchApi('/auth/verify', {
-    method: 'POST',
-    body: JSON.stringify({ password }),
-  });
+// Users
+export const getUsers = (): Promise<User[]> =>
+  fetchApi('/users');
 
 // Items
 export const getItems = (): Promise<ItemSummary[]> =>

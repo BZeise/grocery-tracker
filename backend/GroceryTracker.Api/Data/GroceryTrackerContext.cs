@@ -15,6 +15,7 @@ public class GroceryTrackerContext : DbContext
     public DbSet<Store> Stores => Set<Store>();
     public DbSet<PriceEntry> PriceEntries => Set<PriceEntry>();
     public DbSet<ChangeLog> ChangeLogs => Set<ChangeLog>();
+    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -54,6 +55,18 @@ public class GroceryTrackerContext : DbContext
                 .WithMany(s => s.PriceEntries)
                 .HasForeignKey(e => e.StoreId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(e => e.User)
+                .WithMany(u => u.PriceEntries)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).HasMaxLength(50).IsRequired();
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("datetime('now')");
         });
 
         modelBuilder.Entity<ChangeLog>(entity =>
