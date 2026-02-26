@@ -18,7 +18,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<ItemSummary[]>([]);
   const [stores, setStores] = useState<Store[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error] = useState<string | null>(null);
 
   const refreshItems = useCallback(async () => {
     try {
