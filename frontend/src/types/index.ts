@@ -85,3 +85,18 @@ export type SortDirection = 'asc' | 'desc';
 
 export const UNIT_TYPES = ['oz', 'lbs', 'count', 'fl oz', 'gal', 'ml', 'L', 'g', 'kg', 'pack'] as const;
 export type UnitType = typeof UNIT_TYPES[number];
+
+// Units that convert to a canonical unit within the same measurement system.
+// Units not listed here are already canonical (oz, g, fl oz, ml, count, pack).
+const UNIT_CONVERSIONS: Partial<Record<string, { canonical: string; factor: number }>> = {
+  lbs: { canonical: 'oz',    factor: 16 },
+  kg:  { canonical: 'g',     factor: 1000 },
+  gal: { canonical: 'fl oz', factor: 128 },
+  L:   { canonical: 'ml',    factor: 1000 },
+};
+
+export function normalizePrice(pricePerUnit: number, unitType: string): { price: number; unit: string } {
+  const conv = UNIT_CONVERSIONS[unitType];
+  if (!conv) return { price: pricePerUnit, unit: unitType };
+  return { price: pricePerUnit / conv.factor, unit: conv.canonical };
+}

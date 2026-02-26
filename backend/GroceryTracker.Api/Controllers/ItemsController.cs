@@ -33,7 +33,7 @@ public class ItemsController : ControllerBase
             var latestEntriesByStore = item.PriceEntries
                 .GroupBy(p => p.StoreId)
                 .Select(g => g.OrderByDescending(p => p.RecordedAt).First())
-                .OrderBy(p => p.PricePerUnit)
+                .OrderBy(p => NormalizePricePerUnit(p.PricePerUnit, p.UnitType))
                 .ToList();
 
             var latestPricesByStore = latestEntriesByStore
@@ -136,6 +136,16 @@ public class ItemsController : ControllerBase
 
         return Ok(new ItemDto(item.Id, item.Name, item.CreatedAt, item.IsActive, new List<PriceEntryDto>()));
     }
+
+    private static decimal NormalizePricePerUnit(decimal pricePerUnit, string unitType) =>
+        unitType switch
+        {
+            "lbs" => pricePerUnit / 16m,
+            "kg"  => pricePerUnit / 1000m,
+            "gal" => pricePerUnit / 128m,
+            "L"   => pricePerUnit / 1000m,
+            _     => pricePerUnit
+        };
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteItem(int id)

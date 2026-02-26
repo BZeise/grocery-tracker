@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { ItemSummary, Store, Item, CreatePriceEntryRequest } from '../../types';
+import { normalizePrice } from '../../types';
 import { PriceEntryForm } from '../Forms/PriceEntryForm';
 import * as api from '../../services/api';
 
@@ -77,6 +78,10 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   };
 
+  const normalizedBestPrice = item.bestPrice
+    ? normalizePrice(item.bestPrice.pricePerUnit, item.bestPrice.unitType)
+    : null;
+
   return (
     <div className={`bg-white rounded-lg overflow-hidden ${isExpanded ? 'shadow-md border border-blue-200' : 'shadow-sm border border-gray-200'}`}>
       {/* Main row - compact single line */}
@@ -108,10 +113,10 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
           )}
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          {item.bestPrice ? (
+          {normalizedBestPrice ? (
             <span className="text-sm">
-              <span className="text-green-600 font-semibold">{formatPricePerUnit(item.bestPrice.pricePerUnit)}/{item.latestPricesByStore[0]?.unitType ?? 'unit'}</span>
-              <span className="text-gray-400 text-xs"> · {item.bestPrice.storeName}</span>
+              <span className="text-green-600 font-semibold">{formatPricePerUnit(normalizedBestPrice.price)}/{normalizedBestPrice.unit}</span>
+              <span className="text-gray-400 text-xs"> · {item.bestPrice!.storeName}</span>
             </span>
           ) : (
             <span className="text-gray-400 text-sm">—</span>
