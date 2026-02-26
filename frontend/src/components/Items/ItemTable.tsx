@@ -69,13 +69,19 @@ export function ItemTable({
 
   return (
     <div className="space-y-3">
+      <AddItemRow
+        stores={stores}
+        onItemCreated={onUpdate}
+        onStoreCreated={onStoreCreated}
+      />
+
       {filteredAndSortedItems.length === 0 && items.length > 0 ? (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center text-gray-500">
           No items match your search or filter.
         </div>
       ) : filteredAndSortedItems.length === 0 ? (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center text-gray-500">
-          No items yet. Add your first item below!
+          No items yet. Use the button above to add your first item!
         </div>
       ) : (
         filteredAndSortedItems.map((item) => (
@@ -88,12 +94,6 @@ export function ItemTable({
           />
         ))
       )}
-
-      <AddItemRow
-        stores={stores}
-        onItemCreated={onUpdate}
-        onStoreCreated={onStoreCreated}
-      />
     </div>
   );
 }

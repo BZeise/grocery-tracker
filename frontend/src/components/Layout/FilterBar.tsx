@@ -28,7 +28,7 @@ export function FilterBar({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 space-y-3">
+    <div className="bg-gray-50 rounded-lg shadow-sm border border-gray-300 p-4 space-y-3">
       {/* Search */}
       <div>
         <input

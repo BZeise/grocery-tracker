@@ -65,83 +65,66 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
   };
 
   const formatPrice = (price: number) => `$${price.toFixed(2)}`;
-  const formatPricePerUnit = (price: number) => `$${price.toFixed(4)}`;
+  const formatPricePerUnit = (price: number) => {
+    if (parseFloat(price.toFixed(2)) > 0) return `$${price.toFixed(2)}`;
+    for (let digits = 3; digits <= 8; digits++) {
+      if (parseFloat(price.toFixed(digits)) > 0) return `$${price.toFixed(digits)}`;
+    }
+    return `$${price.toFixed(8)}`;
+  };
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-      {/* Main row - card style for mobile */}
+    <div className={`bg-white rounded-lg overflow-hidden ${isExpanded ? 'shadow-md border border-blue-200' : 'shadow-sm border border-gray-200'}`}>
+      {/* Main row - compact single line */}
       <div
-        className="p-4 cursor-pointer hover:bg-gray-50 transition-colors"
+        className="py-2 px-4 cursor-pointer hover:bg-gray-50 transition-colors flex items-center gap-3"
         onClick={() => { void handleExpand(); }}
       >
-        <div className="flex justify-between items-start">
-          <div className="flex-1 min-w-0">
-            {isEditing ? (
-              <input
-                type="text"
-                title="Item Row"
-                value={editName}
-                onChange={(e) => setEditName(e.target.value)}
-                onBlur={() => { void handleUpdateName(); }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') { void handleUpdateName(); }
-                  if (e.key === 'Escape') {
-                    setEditName(item.name);
-                    setIsEditing(false);
-                  }
-                }}
-                onClick={(e) => e.stopPropagation()}
-                className="text-lg font-semibold text-gray-900 border-b-2 border-blue-500 focus:outline-none w-full"
-                autoFocus
-              />
-            ) : (
-              <h3 className="text-lg font-semibold text-gray-900 truncate">{item.name}</h3>
-            )}
-            {item.bestPrice && (
-              <p className="text-sm text-gray-500 mt-1">
-                Best: {formatPrice(item.bestPrice.pricePerUnit)}/{item.latestPricesByStore[0]?.unitType || 'unit'} at {item.bestPrice.storeName}
-              </p>
-            )}
-          </div>
-          <div className="flex items-center gap-2 ml-4">
-            {item.bestPrice && (
-              <span className="text-xl font-bold text-green-600">
-                {formatPrice(item.bestPrice.totalPrice)}
-              </span>
-            )}
-            <span className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
-              ▼
-            </span>
-          </div>
+        <div className="flex-1 min-w-0">
+          {isEditing ? (
+            <input
+              type="text"
+              title="Item Row"
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
+              onBlur={() => { void handleUpdateName(); }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') { void handleUpdateName(); }
+                if (e.key === 'Escape') {
+                  setEditName(item.name);
+                  setIsEditing(false);
+                }
+              }}
+              onClick={(e) => e.stopPropagation()}
+              className="text-sm font-medium text-gray-900 border-b-2 border-blue-500 focus:outline-none w-full"
+              autoFocus
+            />
+          ) : (
+            <span className="font-medium text-gray-900 text-sm truncate block">{item.name}</span>
+          )}
         </div>
-
-        {/* Store prices summary */}
-        {item.latestPricesByStore.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-3">
-            {item.latestPricesByStore.slice(0, 3).map((sp) => (
-              <span
-                key={sp.storeId}
-                className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700"
-              >
-                {sp.storeName}: {formatPrice(sp.totalPrice)}
-              </span>
-            ))}
-            {item.latestPricesByStore.length > 3 && (
-              <span className="text-xs text-gray-500 self-center">
-                +{item.latestPricesByStore.length - 3} more
-              </span>
-            )}
-          </div>
-        )}
+        <div className="flex items-center gap-2 shrink-0">
+          {item.bestPrice ? (
+            <span className="text-sm">
+              <span className="text-green-600 font-semibold">{formatPricePerUnit(item.bestPrice.pricePerUnit)}/{item.latestPricesByStore[0]?.unitType ?? 'unit'}</span>
+              <span className="text-gray-400 text-xs"> · {item.bestPrice.storeName}</span>
+            </span>
+          ) : (
+            <span className="text-gray-400 text-sm">—</span>
+          )}
+          <span className={`transition-transform text-gray-400 ${isExpanded ? 'rotate-180' : ''}`}>
+            ▼
+          </span>
+        </div>
       </div>
 
       {/* Expanded section */}
       {isExpanded && (
-        <div className="border-t border-gray-200 bg-gray-50 p-4">
+        <div className="border-t-2 border-gray-200 bg-gray-50 p-4">
           {isLoading ? (
             <p className="text-gray-500 text-center py-4">Loading...</p>
           ) : (
