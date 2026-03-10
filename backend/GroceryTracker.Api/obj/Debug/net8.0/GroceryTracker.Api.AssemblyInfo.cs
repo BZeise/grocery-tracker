@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GroceryTracker.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0394b2638b706b951158cd2c5ea68f84d2e3be5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f19329b711df26e2bc9113a41e68a17b0be25f0")]
 [assembly: System.Reflection.AssemblyProductAttribute("GroceryTracker.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GroceryTracker.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
