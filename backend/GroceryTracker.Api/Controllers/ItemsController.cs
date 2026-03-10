@@ -31,6 +31,7 @@ public class ItemsController : ControllerBase
         var result = items.Select(item =>
         {
             var latestEntriesByStore = item.PriceEntries
+                .Where(p => p.IsAvailable)
                 .GroupBy(p => p.StoreId)
                 .Select(g => g.OrderByDescending(p => p.RecordedAt).First())
                 .OrderBy(p => NormalizePricePerUnit(p.PricePerUnit, p.UnitType))
@@ -58,7 +59,8 @@ public class ItemsController : ControllerBase
                     bestEntry.Id, item.Id, bestEntry.StoreId, bestEntry.Store.Name,
                     bestEntry.UserId, bestEntry.User.Name,
                     bestEntry.Quantity, bestEntry.UnitType, bestEntry.TotalPrice,
-                    bestEntry.PricePerUnit, bestEntry.IsOverridden, bestEntry.RecordedAt, bestEntry.CreatedAt
+                    bestEntry.PricePerUnit, bestEntry.IsOverridden, bestEntry.IsOnSale, bestEntry.IsAvailable,
+                    bestEntry.RecordedAt, bestEntry.CreatedAt
                 ) : null,
                 latestPricesByStore
             );
@@ -88,7 +90,8 @@ public class ItemsController : ControllerBase
                 p.Id, p.ItemId, p.StoreId, p.Store.Name,
                 p.UserId, p.User.Name,
                 p.Quantity, p.UnitType, p.TotalPrice,
-                p.PricePerUnit, p.IsOverridden, p.RecordedAt, p.CreatedAt
+                p.PricePerUnit, p.IsOverridden, p.IsOnSale, p.IsAvailable,
+                p.RecordedAt, p.CreatedAt
             ))
             .ToList();
 

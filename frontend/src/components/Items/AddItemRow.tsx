@@ -21,6 +21,7 @@ export function AddItemRow({ stores, onItemCreated, onStoreCreated }: AddItemRow
   const [totalPrice, setTotalPrice] = useState('');
   const [pricePerUnit, setPricePerUnit] = useState('');
   const [isOverridden, setIsOverridden] = useState(false);
+  const [isOnSale, setIsOnSale] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const resetForm = () => {
@@ -31,6 +32,7 @@ export function AddItemRow({ stores, onItemCreated, onStoreCreated }: AddItemRow
     setTotalPrice('');
     setPricePerUnit('');
     setIsOverridden(false);
+    setIsOnSale(false);
     setIsOpen(false);
   };
 
@@ -51,6 +53,7 @@ export function AddItemRow({ stores, onItemCreated, onStoreCreated }: AddItemRow
         unitType,
         totalPrice: parseFloat(totalPrice),
         pricePerUnit: isOverridden ? parseFloat(pricePerUnit) : undefined,
+        isOnSale,
       };
 
       await api.createPriceEntry(priceRequest);
@@ -188,6 +191,11 @@ export function AddItemRow({ stores, onItemCreated, onStoreCreated }: AddItemRow
           />
         </div>
       </div>
+
+      <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+        <input type="checkbox" checked={isOnSale} onChange={(e) => setIsOnSale(e.target.checked)} />
+        On Sale
+      </label>
 
       <div className="flex gap-2 pt-2">
         <button

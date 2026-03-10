@@ -42,6 +42,8 @@ export interface PriceEntry {
   totalPrice: number;
   pricePerUnit: number;
   isOverridden: boolean;
+  isOnSale: boolean;
+  isAvailable: boolean;
   recordedAt: string;
   createdAt: string;
 }
@@ -64,6 +66,7 @@ export interface CreatePriceEntryRequest {
   unitType: string;
   totalPrice: number;
   pricePerUnit?: number;
+  isOnSale: boolean;
   recordedAt?: string;
 }
 
@@ -73,6 +76,8 @@ export interface UpdatePriceEntryRequest {
   unitType: string;
   totalPrice: number;
   pricePerUnit?: number;
+  isOnSale: boolean;
+  isAvailable: boolean;
   recordedAt?: string;
 }
 

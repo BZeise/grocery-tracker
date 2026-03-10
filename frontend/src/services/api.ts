@@ -84,6 +84,12 @@ export const deletePriceEntry = (id: number): Promise<void> =>
     method: 'DELETE',
   });
 
+export const markPriceUnavailable = (id: number): Promise<void> =>
+  fetchApi(`/prices/${id}/unavailable`, { method: 'PATCH' });
+
+export const markPriceAvailable = (id: number): Promise<void> =>
+  fetchApi(`/prices/${id}/available`, { method: 'PATCH' });
+
 // Stores
 export const getStores = (): Promise<Store[]> =>
   fetchApi('/stores');

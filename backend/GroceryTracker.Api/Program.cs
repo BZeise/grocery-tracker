@@ -85,6 +85,14 @@ using (var scope = app.Services.CreateScope())
         context.Database.ExecuteSqlRaw(
             "UPDATE PriceEntries SET UserId = 2");
     }
+
+    if (!columns.Contains("IsOnSale"))
+        context.Database.ExecuteSqlRaw(
+            "ALTER TABLE PriceEntries ADD COLUMN IsOnSale INTEGER NOT NULL DEFAULT 0");
+
+    if (!columns.Contains("IsAvailable"))
+        context.Database.ExecuteSqlRaw(
+            "ALTER TABLE PriceEntries ADD COLUMN IsAvailable INTEGER NOT NULL DEFAULT 1");
 }
 
 app.Run();

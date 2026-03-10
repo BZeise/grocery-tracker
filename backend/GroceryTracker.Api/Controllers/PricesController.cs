@@ -50,6 +50,8 @@ public class PricesController : ControllerBase
             TotalPrice = request.TotalPrice,
             PricePerUnit = pricePerUnit,
             IsOverridden = request.PricePerUnit.HasValue,
+            IsOnSale = request.IsOnSale,
+            IsAvailable = true,
             RecordedAt = request.RecordedAt ?? DateTime.UtcNow,
             CreatedAt = DateTime.UtcNow
         };
@@ -59,6 +61,13 @@ public class PricesController : ControllerBase
 
         await _context.LogChangeAsync("INSERT", priceEntry.Id, (PriceEntry?)null, priceEntry);
 
+        // Auto-mark all previous entries for this (item, store) pair as unavailable
+        await _context.PriceEntries
+            .Where(p => p.ItemId == priceEntry.ItemId
+                     && p.StoreId == priceEntry.StoreId
+                     && p.Id != priceEntry.Id)
+            .ExecuteUpdateAsync(s => s.SetProperty(p => p.IsAvailable, false));
+
         return CreatedAtAction(
             nameof(GetPriceEntry),
             new { id = priceEntry.Id },
@@ -66,7 +75,8 @@ public class PricesController : ControllerBase
                 priceEntry.Id, priceEntry.ItemId, priceEntry.StoreId, store.Name,
                 priceEntry.UserId, user.Name,
                 priceEntry.Quantity, priceEntry.UnitType, priceEntry.TotalPrice,
-                priceEntry.PricePerUnit, priceEntry.IsOverridden, priceEntry.RecordedAt, priceEntry.CreatedAt
+                priceEntry.PricePerUnit, priceEntry.IsOverridden, priceEntry.IsOnSale, priceEntry.IsAvailable,
+                priceEntry.RecordedAt, priceEntry.CreatedAt
             )
         );
     }
@@ -88,7 +98,8 @@ public class PricesController : ControllerBase
             priceEntry.Id, priceEntry.ItemId, priceEntry.StoreId, priceEntry.Store.Name,
             priceEntry.UserId, priceEntry.User.Name,
             priceEntry.Quantity, priceEntry.UnitType, priceEntry.TotalPrice,
-            priceEntry.PricePerUnit, priceEntry.IsOverridden, priceEntry.RecordedAt, priceEntry.CreatedAt
+            priceEntry.PricePerUnit, priceEntry.IsOverridden, priceEntry.IsOnSale, priceEntry.IsAvailable,
+            priceEntry.RecordedAt, priceEntry.CreatedAt
         ));
     }
 
@@ -116,6 +127,8 @@ public class PricesController : ControllerBase
             TotalPrice = priceEntry.TotalPrice,
             PricePerUnit = priceEntry.PricePerUnit,
             IsOverridden = priceEntry.IsOverridden,
+            IsOnSale = priceEntry.IsOnSale,
+            IsAvailable = priceEntry.IsAvailable,
             RecordedAt = priceEntry.RecordedAt,
             CreatedAt = priceEntry.CreatedAt
         };
@@ -129,6 +142,8 @@ public class PricesController : ControllerBase
         priceEntry.TotalPrice = request.TotalPrice;
         priceEntry.PricePerUnit = pricePerUnit;
         priceEntry.IsOverridden = request.PricePerUnit.HasValue;
+        priceEntry.IsOnSale = request.IsOnSale;
+        priceEntry.IsAvailable = request.IsAvailable;
         priceEntry.RecordedAt = request.RecordedAt ?? priceEntry.RecordedAt;
 
         await _context.SaveChangesAsync();
@@ -139,8 +154,61 @@ public class PricesController : ControllerBase
             priceEntry.Id, priceEntry.ItemId, priceEntry.StoreId, priceEntry.Store.Name,
             priceEntry.UserId, priceEntry.User.Name,
             priceEntry.Quantity, priceEntry.UnitType, priceEntry.TotalPrice,
-            priceEntry.PricePerUnit, priceEntry.IsOverridden, priceEntry.RecordedAt, priceEntry.CreatedAt
+            priceEntry.PricePerUnit, priceEntry.IsOverridden, priceEntry.IsOnSale, priceEntry.IsAvailable,
+            priceEntry.RecordedAt, priceEntry.CreatedAt
         ));
+    }
+
+    [HttpPatch("{id}/unavailable")]
+    public async Task<IActionResult> MarkUnavailable(int id)
+    {
+        var priceEntry = await _context.PriceEntries.FindAsync(id);
+
+        if (priceEntry == null)
+        {
+            return NotFound();
+        }
+
+        var oldEntry = new PriceEntry
+        {
+            Id = priceEntry.Id, ItemId = priceEntry.ItemId, StoreId = priceEntry.StoreId,
+            UserId = priceEntry.UserId, Quantity = priceEntry.Quantity, UnitType = priceEntry.UnitType,
+            TotalPrice = priceEntry.TotalPrice, PricePerUnit = priceEntry.PricePerUnit,
+            IsOverridden = priceEntry.IsOverridden, IsOnSale = priceEntry.IsOnSale,
+            IsAvailable = priceEntry.IsAvailable, RecordedAt = priceEntry.RecordedAt, CreatedAt = priceEntry.CreatedAt
+        };
+
+        priceEntry.IsAvailable = false;
+        await _context.SaveChangesAsync();
+        await _context.LogChangeAsync("UPDATE", priceEntry.Id, oldEntry, priceEntry);
+
+        return NoContent();
+    }
+
+    [HttpPatch("{id}/available")]
+    public async Task<IActionResult> MarkAvailable(int id)
+    {
+        var priceEntry = await _context.PriceEntries.FindAsync(id);
+
+        if (priceEntry == null)
+        {
+            return NotFound();
+        }
+
+        var oldEntry = new PriceEntry
+        {
+            Id = priceEntry.Id, ItemId = priceEntry.ItemId, StoreId = priceEntry.StoreId,
+            UserId = priceEntry.UserId, Quantity = priceEntry.Quantity, UnitType = priceEntry.UnitType,
+            TotalPrice = priceEntry.TotalPrice, PricePerUnit = priceEntry.PricePerUnit,
+            IsOverridden = priceEntry.IsOverridden, IsOnSale = priceEntry.IsOnSale,
+            IsAvailable = priceEntry.IsAvailable, RecordedAt = priceEntry.RecordedAt, CreatedAt = priceEntry.CreatedAt
+        };
+
+        priceEntry.IsAvailable = true;
+        await _context.SaveChangesAsync();
+        await _context.LogChangeAsync("UPDATE", priceEntry.Id, oldEntry, priceEntry);
+
+        return NoContent();
     }
 
     [HttpDelete("{id}")]

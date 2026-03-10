@@ -10,6 +10,8 @@ public class PriceEntry
     public decimal TotalPrice { get; set; }
     public decimal PricePerUnit { get; set; }
     public bool IsOverridden { get; set; }
+    public bool IsOnSale { get; set; } = false;
+    public bool IsAvailable { get; set; } = true;
     public DateTime RecordedAt { get; set; } = DateTime.UtcNow;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

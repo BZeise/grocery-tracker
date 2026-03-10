@@ -13,6 +13,7 @@ public record CreatePriceEntryRequest(
     string UnitType,
     decimal TotalPrice,
     decimal? PricePerUnit,
+    bool IsOnSale,
     DateTime? RecordedAt
 );
 
@@ -22,6 +23,8 @@ public record UpdatePriceEntryRequest(
     string UnitType,
     decimal TotalPrice,
     decimal? PricePerUnit,
+    bool IsOnSale,
+    bool IsAvailable,
     DateTime? RecordedAt
 );
 
@@ -66,6 +69,8 @@ public record PriceEntryDto(
     decimal TotalPrice,
     decimal PricePerUnit,
     bool IsOverridden,
+    bool IsOnSale,
+    bool IsAvailable,
     DateTime RecordedAt,
     DateTime CreatedAt
 );

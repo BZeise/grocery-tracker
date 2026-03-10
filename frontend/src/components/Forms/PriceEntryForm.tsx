@@ -26,6 +26,7 @@ export function PriceEntryForm({
   const [totalPrice, setTotalPrice] = useState('');
   const [pricePerUnit, setPricePerUnit] = useState('');
   const [isOverridden, setIsOverridden] = useState(false);
+  const [isOnSale, setIsOnSale] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Calculate price per unit when quantity or total price changes
@@ -57,6 +58,7 @@ export function PriceEntryForm({
         unitType,
         totalPrice: parseFloat(totalPrice),
         pricePerUnit: isOverridden ? parseFloat(pricePerUnit) : undefined,
+        isOnSale,
       });
     } finally {
       setIsSubmitting(false);
@@ -135,6 +137,11 @@ export function PriceEntryForm({
           />
         </div>
       </div>
+
+      <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
+        <input type="checkbox" checked={isOnSale} onChange={(e) => setIsOnSale(e.target.checked)} />
+        On Sale
+      </label>
 
       <div className="flex gap-2 pt-2">
         <button
