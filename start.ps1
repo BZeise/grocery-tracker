@@ -22,6 +22,7 @@ Write-Host "Starting Grocery Tracker..." -ForegroundColor Cyan
 Write-Host "Sleep prevention: active" -ForegroundColor Green
 
 $backendJob = Start-Job -ScriptBlock {
+    [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
     Set-Location $using:backendDir
     dotnet run 2>&1
 }
@@ -30,6 +31,7 @@ $backendJob = Start-Job -ScriptBlock {
 Start-Sleep -Seconds 2
 
 $frontendJob = Start-Job -ScriptBlock {
+    [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
     Set-Location $using:frontendDir
     npm run prod 2>&1
 }
