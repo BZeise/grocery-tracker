@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { SquarePen } from 'lucide-react';
 import type { ItemSummary, Store, Item, CreatePriceEntryRequest } from '../../types';
 import { normalizePrice } from '../../types';
 import { PriceEntryForm } from '../Forms/PriceEntryForm';
@@ -129,7 +130,7 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
           {isEditing ? (
             <input
               type="text"
-              title="Item Row"
+              title="Item name"
               value={editName}
               onChange={(e) => setEditName(e.target.value)}
               onBlur={() => { void handleUpdateName(); }}
@@ -145,7 +146,19 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
               autoFocus
             />
           ) : (
-            <span className="font-medium text-gray-900 text-sm truncate block">{item.name}</span>
+            <span className="flex items-center gap-1.5 min-w-0">
+              <span className="font-medium text-gray-900 text-sm truncate">{item.name}</span>
+              {isExpanded && (
+                <button
+                  type="button"
+                  title="Edit name"
+                  onClick={(e) => { e.stopPropagation(); setIsEditing(true); }}
+                  className="shrink-0 text-gray-400 hover:text-gray-600 rounded p-0.5"
+                >
+                  <SquarePen size={13} />
+                </button>
+              )}
+            </span>
           )}
         </div>
         <div className="flex items-center gap-2 shrink-0">
@@ -189,21 +202,11 @@ export function ItemRow({ item, stores, onUpdate, onStoreCreated }: ItemRowProps
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    setIsEditing(true);
-                  }}
-                  className="px-3 py-1.5 bg-gray-200 text-gray-700 text-sm rounded-lg hover:bg-gray-300"
-                >
-                  Edit Name
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
                     void handleDelete();
                   }}
-                  className="px-3 py-1.5 bg-red-100 text-red-700 text-sm rounded-lg hover:bg-red-200"
+                  className="ml-auto px-3 py-1.5 bg-red-100 text-red-700 text-sm rounded-lg hover:bg-red-200"
                 >
-                  Delete
+                  Delete Item
                 </button>
               </div>
 
