@@ -2,3 +2,10 @@
 *.db
 *.db-shm
 *.db-wal
+
+# .NET build output
+backend/**/bin/
+backend/**/obj/
+
+# Claude Code local settings
+.claude/settings.local.json
