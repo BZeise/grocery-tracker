@@ -138,3 +138,10 @@ Your current Node.js version (v15.2.1) is too old for production builds. To upgr
 **"Permission denied on network"**
 - Add firewall rules for ports 5000 and 3000
 - Ensure both backend and frontend are running
+
+## TODO
+
+- [ ] **Standardize a cross-app nav drawer** with links to the sibling apps (Mouse Hoovie,
+  Ham Meds, etc.), first implemented in `ham-meds`
+  (`frontend/src/components/Layout/NavDrawer.tsx`). Consider extracting a shared component or
+  a small `apps.json`-style config consumed by all apps so the launcher links stay consistent.
